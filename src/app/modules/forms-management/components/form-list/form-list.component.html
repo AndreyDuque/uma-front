@@ -1,1 +1,12 @@
-<p>form-list works!</p>
+<section class="imgFondo">
+    <h5 class="mt-5 mb-5 text-center"><strong>FORMULARIOS ACTIVOS:</strong> SELECCIONA EL FORMULARIO QUE QUIERES VINCULAR A BITRIX24</h5>
+
+    <div class="container-fluid  ">
+        
+        <div class="row justify-content-between marginList mb-5">
+            <div *ngFor="let form of jotformForms" class="col-12 col-md-4 mt-3" >
+                <button  [routerLink]="'/forms/crm-management'" type="button" class="btn btn-secondary col-12 col-md-4 w-75" [ngClass]="{'formColorB24': form.itsRelated == true}" >{{form.title}}</button>
+            </div>
+        </div>
+    </div>
+</section>

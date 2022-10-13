@@ -1,1 +1,29 @@
-<p>El formulario aqui</p>
+<section class=" d-flex justify-content-center ">
+    <form>
+        <h6 class="tittle mb-3 strong "><strong>
+            Login jotform
+        </strong>
+        </h6>
+        <img src="https://i0.wp.com/blog.soyrappi.com/wp-content/uploads/2021/12/UMA-Rojo-Maria-Paula-Hernandez-Rubio.png?fit=4735%2C1323&ssl=1"
+            alt="">
+        <label>
+            <svg class="icons" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+                class="bi bi-person-fill" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+            </svg>
+            <input class="mt-4 user" placeholder="Usuario jotform" type="text" id="userName">
+        </label>
+        <label>
+            <svg class="icons" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+                class="bi bi-lock-fill" viewBox="0 0 16 16">
+                <path
+                    d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+            </svg>
+            <input placeholder=" Contraseña jotform" class="user" type="password" id="password">
+        </label>
+        <div class="d-flex justify-content-center ">
+            <!-- <a type="button" id="ingresar" value="Login" class="button mt-3 mb-3 w-50" [routerLink]="'/forms'"></a> -->
+            <input [routerLink]="'/forms'" type="button" id="ingresar" value="Login" class="button mt-3 mb-3 w-50">
+        </div>
+    </form>
+</section>
