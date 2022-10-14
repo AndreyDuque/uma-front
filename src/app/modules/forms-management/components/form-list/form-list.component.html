@@ -1,0 +1,16 @@
+<section class="imgFondo">
+    <div class="mt-5 mb-5 text-center">
+        <h5><strong>FORMULARIOS ACTIVOS:</strong> SELECCIONA UN FORMULARIO DE JOTFORM QUE
+            QUIERAS VINCULAR A BITRIX24</h5>
+        <p>(Nota: Los formularios en azul ya se han vinculado previamente a Bitrix24)</p>
+    </div>
+    <div class="container-fluid  ">
+
+        <div class="row justify-content-between marginList mb-5">
+            <div  *ngFor="let form of jotformForms" class="col-12 col-md-4 mt-3">
+                <button (click)="userClick(form.id)" type="button" class="btn btn-secondary col-12 col-md-4 w-75"
+                    [ngClass]="{'formColorB24': form.itsRelated, 'formColorJotform': !form.itsRelated}">{{form.title}}</button>
+            </div>
+        </div>
+    </div>
+</section>
