@@ -9,11 +9,11 @@ import { JotformService } from 'src/app/modules/core/services/jotform.service';
 })
 export class FormListComponent implements OnInit {
   jotformForms: any[] =[];
- 
+
   constructor(
     private readonly jotformService:JotformService,
     private readonly router: Router
-  ) 
+  )
     { }
 
   ngOnInit(): void {
@@ -27,7 +27,7 @@ export class FormListComponent implements OnInit {
   }
 
   userClick(e: any) {
-    this.router.navigate([`/forms/crm-management/`], { queryParams: { id: e } }).then();
+    this.router.navigate([`/forms/crm-management/${e.title}`], { queryParams: { id: e.id } }).then();
     console.log('evento click :',e)
   }
 

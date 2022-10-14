@@ -1,42 +1,11 @@
-<section class="imgFondo">
-    <!-- <div>
-        <nav class="navbar navbar-expand-lg bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand text-white " href="#"><img
-                        src="https://grupouma.com/colombia/wp-content/uploads/sites/2/2021/07/uma-logo.png" alt=""></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">    
-                </div>
-                <li class="nav-item ">
-                    <a class="nav-link active text-white mb-2  navtext" aria-current="page" href="#">Cerrar sesion</a>
-                </li>
-            </div>
-        </nav>
-    </div> -->
-    <h5 class="text-center mt-5 mb-5 p-3">
-        
-        Selecciona la entidad del<strong> CRM </strong>que deseas crear apartir del formulario <STrong>Captura datos presencial</STrong>
-    
-    </h5>
-  
-    <div class="container-fluid mb-5 ">
-        <div class="row justify-content-center  mt-5">
-            <button type="button" class="btn btn-secondary col-12  w-50">LEAD</button> 
-        </div>
-        <div class="row justify-content-around mt-3">
-            <button type="button" class="btn btn-secondary col-12 col-md-4 w-50">DEAL</button>          
-        </div>
-        <div class="row justify-content-around mt-3">
-            <button type="button" class="btn btn-secondary col-12 col-md-4 w-50">CONTACT</button>
-        </div>
-        <div class="row justify-content-around mt-3">
-            <button type="button" class="btn btn-secondary col-12 col-md-4 w-50">COMPANY</button>
-        </div>
-        <div class="row justify-content-around mt-3">
-            <button [routerLink]="'/forms/fields'" type="button" class="btn btn-success col-12 col-md-4 w-50">DEAL + CONTACT</button>
-        </div>
-    </div>
+<section class="container">
+  <h5 class="text-center mt-5 mb-5 p-3">
+    Selecciona la entidad del<strong> CRM </strong>que deseas crear apartir del
+    formulario <STrong>{{ titleForm }}</STrong>
+  </h5>
+
+  <div *ngFor="let entityCrm of entitiesCrm" class="row justify-content-center mb-4">
+    <button (click)="userClick(entityCrm[0])" type="button" class="btn btn-primary col-8 col-md-4">{{ entityCrm[1] }}</button>
+  </div>
+
 </section>

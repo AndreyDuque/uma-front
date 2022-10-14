@@ -11,10 +11,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CrmManagementComponent implements OnInit {
 
   idForm: number = 0;
+  titleForm: string = "";
+  entitiesCrm: any[] = [
+    ['lead', 'LEAD'],
+    ['deal', 'DEAL'],
+    ['contact', 'CONTACT'],
+    ['company', 'COMPANY'],
+    ['deal-and-contact', 'DEAL + CONTACT']
+  ]
+
   constructor(
     private readonly router: Router,
     private readonly route: ActivatedRoute
-    
+
   ) { }
 
   ngOnInit(): void {
@@ -23,6 +32,17 @@ export class CrmManagementComponent implements OnInit {
         this.idForm = Number(query['id']);
       }
     })
+
+    this.route.params.subscribe({
+      'next': param => {
+        this.titleForm = param['title'];
+      }
+    })
+
+  }
+
+  userClick(entityCrm: string) {
+    this.router.navigate([`/forms/fields/${entityCrm}`], { queryParams: { id: this.idForm } }).then();
   }
 
 }

@@ -20,11 +20,11 @@ const routes: Routes = [
         component: FormListComponent
       },
       {
-        path: 'crm-management',
+        path: 'crm-management/:title',
         component: CrmManagementComponent
       },
       {
-        path: 'fields',
+        path: 'fields/:title',
         component: FormFieldsComponent
       }
     ],
