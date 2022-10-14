@@ -7,13 +7,15 @@ import { FormListComponent } from './components/form-list/form-list.component';
 import { CrmManagementComponent } from './components/crm-management/crm-management.component';
 import { FormFieldsComponent } from './components/form-fields/form-fields.component';
 import { CoreModule } from '../core/core.module';
+import { NavbarComponent } from '../core/shared/components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     FormsLayoutComponent,
     FormListComponent,
     CrmManagementComponent,
-    FormFieldsComponent
+    FormFieldsComponent,
+    // NavbarComponent
   ],
   imports: [
     CommonModule,
