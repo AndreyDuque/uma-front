@@ -1,0 +1,52 @@
+
+form{
+    display: flex;
+    flex-direction: column;
+    background:rgb(239, 237, 237);
+    text-align: center;
+    padding: 20px 25px;
+    box-shadow: 0px 2px 10px rgba(228,35,32,255);
+    border-radius: 20px;
+    width: 300px;
+    opacity: 0.6;
+    
+}
+
+form.title{
+    color: black;
+    font-size: 35px;
+    font-weight: 800;
+    margin-bottom: 30px;
+   
+}
+
+form label{
+    margin-bottom: 35px;
+}
+
+ form label input{
+    border: 0px solid ;
+    outline: none;
+    border-bottom: solid 1px;   
+}
+
+form.link{
+    color: #252525;
+    margin-bottom: 25px;
+}
+.button{
+    width: 10%;
+    background-color: #ff0000;;
+    border:0px solid;
+    height: 60%;
+    color: white;
+    font-weight: bold;
+   
+}
+
+.button:hover{
+    background-color: rgb(23, 22, 22);
+}
+.user{
+    background-color: transparent;
+}

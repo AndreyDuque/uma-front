@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {FormsLayoutComponent} from "./components/forms-layout/forms-layout.component";
 import {FormListComponent} from "./components/form-list/form-list.component";
+import { CrmManagementComponent } from './components/crm-management/crm-management.component';
+import { FormFieldsComponent } from './components/form-fields/form-fields.component';
 
 const routes: Routes = [
   {
@@ -16,6 +18,14 @@ const routes: Routes = [
       {
         path: 'list',
         component: FormListComponent
+      },
+      {
+        path: 'crm-management',
+        component: CrmManagementComponent
+      },
+      {
+        path: 'fields',
+        component: FormFieldsComponent
       }
     ],
 
