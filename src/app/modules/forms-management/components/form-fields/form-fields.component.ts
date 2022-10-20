@@ -107,5 +107,4 @@ this.fieldsFormJotfor[index].slbs = true
 //   return 0.name
 // }
 
-
 }
