@@ -87,13 +87,18 @@ export class FormFieldsComponent implements OnInit {
 
   labelsProperties(obj: any) {
     const keys = Object.keys(obj);
+const index = this.fieldsFormJotfor.findIndex(field => field.sublabels === obj)
+    console.log(this.fieldsFormJotfor[index]) // informacion del objeto de Jotform
     const fields: any[] = []
     keys.forEach(key => {
       if (key !== 'prefix' && key !== 'suffix' && key !== 'masked' && obj[key] !== '' ) {
-        fields.push({[key]: obj[key], text: obj[key]})
+        fields.push({property: key, text: obj[key], qid: this.fieldsFormJotfor[index].qid})
       }
     });
+this.fieldsFormJotfor[index].slbs = true
+    console.log({fields,  fieldsFormJotfor: this.fieldsFormJotfor})
     return fields;
   }
+
 
 }
