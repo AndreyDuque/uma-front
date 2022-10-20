@@ -45,6 +45,7 @@ export class FormFieldsComponent implements OnInit {
         keys.forEach(key => {
           if (fields[key].hasOwnProperty('required')) {
             // console.log('---------', fields[key])
+            fields[key].slbs = fields.hasOwnProperty('sublabels');
             this.fieldsFormJotfor.push(fields[key]);
             newFields[key] = fields[key];
           }
@@ -88,7 +89,7 @@ export class FormFieldsComponent implements OnInit {
   labelsProperties(obj: any) {
     const keys = Object.keys(obj);
 const index = this.fieldsFormJotfor.findIndex(field => field.sublabels === obj)
-    console.log(this.fieldsFormJotfor[index]) // informacion del objeto de Jotform
+    // console.log(this.fieldsFormJotfor[index]) // informacion del objeto de Jotform
     const fields: any[] = []
     keys.forEach(key => {
       if (key !== 'prefix' && key !== 'suffix' && key !== 'masked' && obj[key] !== '' ) {
@@ -96,9 +97,15 @@ const index = this.fieldsFormJotfor.findIndex(field => field.sublabels === obj)
       }
     });
 this.fieldsFormJotfor[index].slbs = true
-    console.log({fields,  fieldsFormJotfor: this.fieldsFormJotfor})
+    // console.log({fields,  fieldsFormJotfor: this.fieldsFormJotfor})
     return fields;
   }
+
+// if(obj.slbs){
+//   return 0.sublabels.property
+// }else{
+//   return 0.name
+// }
 
 
 }
