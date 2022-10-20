@@ -1,4 +1,3 @@
-import { query } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { B24Service } from 'src/app/modules/core/services/b24.service';
@@ -88,11 +87,13 @@ export class FormFieldsComponent implements OnInit {
 
   labelsProperties(obj: any) {
     const keys = Object.keys(obj);
+    const fields: any[] = []
     keys.forEach(key => {
-      if (key !== 'prefix' && key !== 'sufix') {
-        
+      if (key !== 'prefix' && key !== 'suffix') {
+        fields.push({[key]: obj[key], text: obj[key]})
       }
     });
+    return fields;
   }
 
 }
