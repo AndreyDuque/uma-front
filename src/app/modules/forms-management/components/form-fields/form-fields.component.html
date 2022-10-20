@@ -16,19 +16,20 @@
   </div>
 
   <div *ngFor="let fieldFormJotform of fieldsFormJotfor" class="row justify-content-around mb-4">
+    <!--if Not labels property exist-->
     <div *ngIf="!fieldFormJotform.slbs" class="col-10 col-md-4 px-0">
       <div class="col-12 styleDivJotform">
         {{ fieldFormJotform.text }}
       </div>
     </div>
-
+    <!--if labels property exist-->
     <div class="row col-10 col-md-4 px-0" *ngIf="fieldFormJotform.slbs">
       <div class="col-12 styleDivJotform my-2" *ngFor="let label of labelsProperties(fieldFormJotform.sublabels)">
         {{label.text}}
       </div>
     </div>
 
-
+    <!--if Not labels property exist-->
     <div class="col-10 col-md-4 p-0 mrginTopB24" *ngIf="!fieldFormJotform.slbs">
       <!-- <label for="exampleDataList" class="form-label">Datalist example</label> -->
       <input
@@ -44,9 +45,9 @@
         </option>
       </datalist>
     </div>
-
+<!--if labels property exist-->
     <div *ngIf="fieldFormJotform.slbs" class="col-10 col-md-4 p-0">
-      <div class="col-12 p-0 mrginTopB24 "
+      <div class="col-12 p-0 mrginTopB24"
            *ngFor="let obj of labelsProperties(fieldFormJotform.sublabels), let i = index">
         <!-- <label for="exampleDataList" class="form-label">Datalist example</label> -->
         <input
