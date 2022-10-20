@@ -1,106 +1,41 @@
-<section class="imgFondo">
-    <!-- <div>
-        <nav class="navbar navbar-expand-lg bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand text-white " href="#"><img
-                        src="https://grupouma.com/colombia/wp-content/uploads/sites/2/2021/07/uma-logo.png" alt=""></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                </div>
-                <li class="nav-item ">
-                    <a class="nav-link active text-white mb-2  navtext" aria-current="page" href="#">Cerrar sesion</a>
-                </li>
-            </div>
-        </nav>
-    </div> -->
-    <h5 class="text-center mt-5 mb-5">
-        Selecciona para cada campo de <strong class="jotform"> Jotform </strong>el campo que quieres actualizar en
-        <STrong class="bitrix24">Bitrix24</STrong> en el formulario <strong>Captura datos presenciales</strong>
-    </h5>
-    <div class="container-fluid mb-5">
-        <div class="row">
-            <div class="col-12 col-md-6 mt-3">
-                <h4 class="text-center jotform"><strong>CAMPOS JOTFORM</strong> </h4>
-                <div class="row justify-content-center mt-5">
-                    <button type="button" class="btn btn-secondary w-75">Nombre</button>
-                </div>
-                <div class="row justify-content-around mt-3">
-                    <button type="button" class="btn btn-secondary w-75">Correo</button>
-                </div>
-                <div class="row justify-content-around mt-3">
-                    <button type="button" class="btn btn-secondary w-75">Telefono</button>
-                </div>
-                <div class="row justify-content-around mt-3">
-                    <button type="button" class="btn btn-secondary w-75">Motocicleta de interes</button>
-                </div>
-                <div class="row justify-content-around mt-3">
-                    <button type="button" class="btn btn-success w-75">Ciudad</button>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 mt-3">
-                <h4 class="text-center bitrix24"><strong>CAMPOS BITRIX24</strong> </h4>
-                <div class="row justify-content-around mt-5">
-                    <select class="form-select form-select-sm w-75" aria-label=".form-select-sm example">
-                        <option selected>Selecciones una opcion</option>
-                        <option value="1">Contact:Nombre</option>
-                        <option value="2">Contact:Apellidos</option>
-                        <option value="3">Contact:Email </option>
-                        <option value="4">Deal:Motocicleta</option>
-                        <option value="5">Deal:Ciudad</option>
-                        <option value="6">Deal:sede </option>
-                    </select>
-                </div>
-                <div class="row justify-content-around mt-3 ">
-                    <select class="form-select form-select-sm mt-2 w-75 " aria-label=".form-select-sm example">
-                        <option selected>Seleccione una opcion</option>
-                        <option value="1">Contact:Nombre</option>
-                        <option value="2">Contact:Apellidos</option>
-                        <option value="3">Contact:Email </option>
-                        <option value="4">Deal:Motocicleta</option>
-                        <option value="5">Deal:Ciudad</option>
-                        <option value="6">Deal:sede </option>
-                    </select>
-                </div>
-                <div class="row justify-content-around mt-3">
-                    <select class="form-select form-select-sm mt-2 w-75" aria-label=".form-select-sm example">
-                        <option selected>Seleccione una opcion</option>
-                        <option value="1">Contact:Nombre</option>
-                        <option value="2">Contact:Apellidos</option>
-                        <option value="3">Contact:Email </option>
-                        <option value="4">Deal:Motocicleta</option>
-                        <option value="5">Deal:Ciudad</option>
-                        <option value="6">Deal:sede </option>
-                    </select>
-                </div>
-                <div class="row justify-content-around mt-3">
-                    <select class="form-select form-select-sm mt-2 w-75 " aria-label=".form-select-sm example">
-                        <option selected>Seleccione una opcion</option>
-                        <option value="1">Contact:Nombre</option>
-                        <option value="2">Contact:Apellidos</option>
-                        <option value="3">Contact:Email </option>
-                        <option value="4">Deal:Motocicleta</option>
-                        <option value="5">Deal:Ciudad</option>
-                        <option value="6">Deal:sede </option>
-                    </select>
-                </div>
-                <div class="row justify-content-around mt-3">
-                    <select class="form-select form-select-sm mt-2 w-75 " aria-label=".form-select-sm example">
-                        <option selected>Seleccione una opcion</option>
-                        <option value="1">Contact:Nombre</option>
-                        <option value="2">Contact:Apellidos</option>
-                        <option value="3">Contact:Email </option>
-                        <option value="4">Deal:Motocicleta</option>
-                        <option value="5">Deal:Ciudad</option>
-                        <option value="6">Deal:sede </option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5 justify-content-center">
-            <button type="button" class="btn btn-success col-4 col-md-2">Enviar</button>
-        </div>
+<section class="container-fluid mb-5">
+  <h5 class="text-center mt-5 mb-5">
+    Selecciona para cada campo de <strong class="jotform"> JOTFORM </strong>el
+    campo de <strong class="bitrix24">{{ entityCrm }}</strong> en
+    <strong class="bitrix24">BITRIX24</strong> que quieres relacionar del
+    formulario
+    <strong class="jotform">{{ titleFormJotform }}</strong>
+  </h5>
+  <div class="row mb-5 justify-content-around">
+    <h4 class="col-md-5 text-center jotform">
+      <strong>CAMPOS JOTFORM -  {{ titleFormJotform }}</strong>
+    </h4>
+    <h4 class="col-md-5 text-center bitrix24">
+      <strong>CAMPOS {{ entityCrm }} BITRIX24</strong>
+    </h4>
+  </div>
+
+  <div
+    *ngFor="let fieldFormJotform of fieldsFormJotfor"
+    class="row justify-content-around mb-4"
+  >
+    <div class="col-10 col-md-4 styleDivJotform">
+      {{ fieldFormJotform.hasOwnProperty('sublabels') ? labelsProperties(fieldFormJotform.sublabels) : fieldFormJotform.text }}
     </div>
+    <div class="col-10 col-md-4 p-0 mrginTopB24">
+      <!-- <label for="exampleDataList" class="form-label">Datalist example</label> -->
+      <input
+        class="form-control"
+        list="datalistOptions"
+        placeholder="Selecciona el campo de B24..."
+      />
+      <datalist id="datalistOptions">
+        <option *ngFor="let fieldEntity of fieldsEntityCrm">
+          {{
+            fieldEntity.listLabel ? fieldEntity.listLabel : fieldEntity.title
+          }}
+        </option>
+      </datalist>
+    </div>
+  </div>
 </section>

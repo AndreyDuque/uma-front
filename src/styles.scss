@@ -1,10 +1,20 @@
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  footer {
-    background-color: black;
-    margin-top: auto;
-  }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  background-color: black;
+  margin-top: auto;
+}
+
+.bitrix24 {
+  color: #0051a3;
+  text-transform: uppercase;
+}
+
+.jotform {
+  color: #f38632;
+  text-transform: uppercase;
+}

@@ -13,10 +13,10 @@ export class CrmManagementComponent implements OnInit {
   idForm: number = 0;
   titleForm: string = "";
   entitiesCrm: any[] = [
-    ['lead', 'LEAD'],
-    ['deal', 'DEAL'],
-    ['contact', 'CONTACT'],
-    ['company', 'COMPANY'],
+    ['leads', 'LEAD'],
+    ['deals', 'DEAL'],
+    ['contacts', 'CONTACT'],
+    ['companies', 'COMPANY'],
     ['deal-and-contact', 'DEAL + CONTACT']
   ]
 
@@ -29,6 +29,7 @@ export class CrmManagementComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe({
       'next': query => {
+        console.log('--------', query)
         this.idForm = Number(query['id']);
       }
     })
@@ -42,7 +43,7 @@ export class CrmManagementComponent implements OnInit {
   }
 
   userClick(entityCrm: string) {
-    this.router.navigate([`/forms/fields/${entityCrm}`], { queryParams: { id: this.idForm } }).then();
+    this.router.navigate([`/forms/fields/${this.titleForm}`], { queryParams: { id: this.idForm, entity: entityCrm } }).then();
   }
 
 }
