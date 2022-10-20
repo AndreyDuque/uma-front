@@ -32,7 +32,7 @@
     <div class="col-10 col-md-4 p-0 mrginTopB24" *ngIf="!fieldFormJotform.hasOwnProperty('sublabels')">
       <!-- <label for="exampleDataList" class="form-label">Datalist example</label> -->
       <input
-        class="form-control"
+        class="form-control my-2"
         list="datalistOptions1"
         placeholder="Selecciona el campo de B24..."
       />
@@ -45,12 +45,12 @@
       </datalist>
     </div>
 
-    <div *ngIf="fieldFormJotform.hasOwnProperty('sublabels')" class="col-10 col-md-4 p-0 ">
-      <div class="col-12 p-0 mrginTopB24 my-2"
+    <div *ngIf="fieldFormJotform.hasOwnProperty('sublabels')" class="col-10 col-md-4 p-0">
+      <div class="col-12 p-0 mrginTopB24 "
            *ngFor="let obj of labelsProperties(fieldFormJotform.sublabels), let i = index">
         <!-- <label for="exampleDataList" class="form-label">Datalist example</label> -->
         <input
-          class="form-control"
+          class="form-control my-2"
           list="datalistOptions2"
           placeholder="Selecciona el campo de B24..."
           [id]="i"

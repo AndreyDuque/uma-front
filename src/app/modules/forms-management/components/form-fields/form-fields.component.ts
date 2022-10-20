@@ -89,7 +89,7 @@ export class FormFieldsComponent implements OnInit {
     const keys = Object.keys(obj);
     const fields: any[] = []
     keys.forEach(key => {
-      if (key !== 'prefix' && key !== 'suffix') {
+      if (key !== 'prefix' && key !== 'suffix' && key !== 'masked' && obj[key] !== '' ) {
         fields.push({[key]: obj[key], text: obj[key]})
       }
     });
