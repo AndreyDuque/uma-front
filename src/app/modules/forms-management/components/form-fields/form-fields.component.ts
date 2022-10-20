@@ -45,7 +45,7 @@ export class FormFieldsComponent implements OnInit {
         keys.forEach(key => {
           if (fields[key].hasOwnProperty('required')) {
             // console.log('---------', fields[key])
-            fields[key].slbs = fields.hasOwnProperty('sublabels');
+            fields[key].slbs = fields[key].hasOwnProperty('sublabels');
             this.fieldsFormJotfor.push(fields[key]);
             newFields[key] = fields[key];
           }
