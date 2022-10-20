@@ -1,17 +1,13 @@
-img {
-    width: 100%;
-}
-.bitrix24 {
-    color: #0051a3;
+.styleDivJotform {
+  background: #f5f3f3;
+  border-radius: 7px;
+  border: solid 2px #f38632;
+  padding: 7px;
+  text-align: center;
 }
 
-.jotform {
-    color: #f38632;
+@media (max-width: 764px) {
+  .mrginTopB24 {
+    margin-top: 10px;
+  }
 }
-// img:hover{
-//     zoom: 1.1;
-// }
-// .navtext:hover{
-//     zoom: 1.1;
-
-// }

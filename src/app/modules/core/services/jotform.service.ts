@@ -13,5 +13,10 @@ export class JotformService {
   getJotformForms(){
     return this.http.get(`${this.backUrl}/forms`);
   }
+
+  getFormFieldsJotformForId(id: number) {
+    return this.http.get(`${this.backUrl}/forms/${id}/questions`);
+  }
+
 }
 

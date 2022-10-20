@@ -15,7 +15,7 @@ import { NavbarComponent } from '../core/shared/components/navbar/navbar.compone
     FormListComponent,
     CrmManagementComponent,
     FormFieldsComponent,
-    // NavbarComponent
+    NavbarComponent
   ],
   imports: [
     CommonModule,
