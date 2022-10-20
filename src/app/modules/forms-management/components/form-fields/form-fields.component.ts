@@ -100,11 +100,9 @@ this.fieldsFormJotfor[index].slbs = true
     // console.log({fields,  fieldsFormJotfor: this.fieldsFormJotfor})
     return fields;
   }
-
 // if(obj.slbs){
 //   return 0.sublabels.property
 // }else{
 //   return 0.name
 // }
-
 }
