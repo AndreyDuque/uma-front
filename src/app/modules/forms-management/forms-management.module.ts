@@ -8,6 +8,7 @@ import { CrmManagementComponent } from './components/crm-management/crm-manageme
 import { FormFieldsComponent } from './components/form-fields/form-fields.component';
 import { CoreModule } from '../core/core.module';
 import { NavbarComponent } from '../core/shared/components/navbar/navbar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { NavbarComponent } from '../core/shared/components/navbar/navbar.compone
   imports: [
     CommonModule,
     FormsManagementRoutingModule,
-    CoreModule
+    CoreModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class FormsManagementModule { }

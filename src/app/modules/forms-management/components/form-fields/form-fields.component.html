@@ -8,63 +8,37 @@
   </h5>
   <div class="row mb-5 justify-content-around">
     <h4 class="col-md-5 text-center jotform">
-      <strong>CAMPOS JOTFORM -  {{ titleFormJotform }}</strong>
+      <strong>CAMPOS JOTFORM - {{ titleFormJotform }}</strong>
     </h4>
     <h4 class="col-md-5 text-center bitrix24">
       <strong>CAMPOS {{ entityCrm }} BITRIX24</strong>
     </h4>
   </div>
 
-  <div *ngFor="let fieldFormJotform of fieldsFormJotfor" class="row justify-content-around mb-4">
-    <!--if Not labels property exist-->
-    <div *ngIf="!fieldFormJotform.slbs" class="col-10 col-md-4 px-0">
-      <div class="col-12 styleDivJotform">
-        {{ fieldFormJotform.text }}
-      </div>
-    </div>
-    <!--if labels property exist-->
-    <div class="row col-10 col-md-4 px-0" *ngIf="fieldFormJotform.slbs">
-      <div class="col-12 styleDivJotform my-2" *ngFor="let label of labelsProperties(fieldFormJotform.sublabels)">
-        {{label.text}}
-      </div>
+  <div
+    *ngFor="let fieldFormJotform of fieldsFormJotfor"
+    class="row justify-content-around mb-4"
+  >
+    <div class="col-10 col-md-4 styleDivJotform">
+      {{ fieldFormJotform.text }}
     </div>
 
-    <!--if Not labels property exist-->
-    <div class="col-10 col-md-4 p-0 mrginTopB24" *ngIf="!fieldFormJotform.slbs">
+    <div class="col-10 col-md-4 p-0 mrginTopB24">
       <!-- <label for="exampleDataList" class="form-label">Datalist example</label> -->
       <input
-        class="form-control my-2"
-        list="datalistOptions1"
+        [id]="fieldFormJotform.fieldName"
+        class="form-control"
+        list="datalistOptions"
         placeholder="Selecciona el campo de B24..."
       />
-      <datalist id="datalistOptions1">
-        <option *ngFor="let fieldEntity of fieldsEntityCrm">
+      <datalist id="datalistOptions">
+        <option *ngFor="let fieldEntity of fieldsEntityCrm" (click)="itemSelected(fieldsEntityCrm)">
           {{
-          fieldEntity.listLabel ? fieldEntity.listLabel : fieldEntity.title
+            fieldEntity.listLabel ? fieldEntity.listLabel : fieldEntity.title
           }}
         </option>
       </datalist>
     </div>
-<!--if labels property exist-->
-    <div *ngIf="fieldFormJotform.slbs" class="col-10 col-md-4 p-0">
-      <div class="col-12 p-0 mrginTopB24"
-           *ngFor="let obj of labelsProperties(fieldFormJotform.sublabels), let i = index">
-        <!-- <label for="exampleDataList" class="form-label">Datalist example</label> -->
-        <input
-          class="form-control my-2"
-          list="datalistOptions2"
-          placeholder="Selecciona el campo de B24..."
-          [id]="i"
-        />
-        <datalist id="datalistOptions2">
-          <option *ngFor="let fieldEntity of fieldsEntityCrm">
-            {{
-            fieldEntity.listLabel ? fieldEntity.listLabel : fieldEntity.title
-            }}
-          </option>
-        </datalist>
-      </div>
-    </div>
-
   </div>
+  <button type="submit" class="btn btn-outline-success">Enviar</button>
 </section>
