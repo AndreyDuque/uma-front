@@ -17,9 +17,9 @@ export class FormFieldsComponent implements OnInit {
   entityCrm: string = '';
 
   constructor(
-    private readonly jotformService:JotformService,
-    private readonly b24Service:B24Service,
-    private readonly route:ActivatedRoute
+    private readonly jotformService: JotformService,
+    private readonly b24Service: B24Service,
+    private readonly route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -44,17 +44,20 @@ export class FormFieldsComponent implements OnInit {
         const keys = Object.keys(fields);
         keys.forEach(key => {
           if (fields[key].hasOwnProperty('required')) {
-            // console.log('---------', fields[key])
-            fields[key].slbs = fields[key].hasOwnProperty('sublabels');
-            this.fieldsFormJotfor.push(fields[key]);
-            newFields[key] = fields[key];
+            if (fields[key].hasOwnProperty('sublabels')) {
+              const arraySublabels = this.labelsProperties(fields[key].sublabels, fields[key].qid);
+              arraySublabels.forEach(sublabel => {
+                this.fieldsFormJotfor.push(sublabel);
+              });
+            } else {
+              fields[key].fieldName = fields[key].qid+'_'+fields[key].name;
+              this.fieldsFormJotfor.push(fields[key]);
+              newFields[key] = fields[key];
+            }
           }
 
         });
-        // const marcas = fields[30].list.split('\n ');
-        // marcas[1].split('\n');
-        console.log('*********', this.fieldsFormJotfor)
-        // console.log('Campos furmulario Jotform: ', [marcas[0], marcas[1].split('\n')[0]]);
+        console.log('Campos Jotform: ', this.fieldsFormJotfor);
       },
       'error': error => console.log(error)
     })
@@ -81,28 +84,24 @@ export class FormFieldsComponent implements OnInit {
             this.fieldsEntityCrm.push(fieldsEntity.deals[keysDeals]);
           });
         }
-        // console.log('Campos entidad ' + this.entityCrm, this.fieldsEntityCrm);
+        console.log('Campos B24: ', this.fieldsEntityCrm);
       }
     })
   }
 
-  labelsProperties(obj: any) {
+  labelsProperties(obj: any, qid: string) {
     const keys = Object.keys(obj);
-const index = this.fieldsFormJotfor.findIndex(field => field.sublabels === obj)
-    // console.log(this.fieldsFormJotfor[index]) // informacion del objeto de Jotform
     const fields: any[] = []
     keys.forEach(key => {
-      if (key !== 'prefix' && key !== 'suffix' && key !== 'masked' && obj[key] !== '' ) {
-        fields.push({property: key, text: obj[key], qid: this.fieldsFormJotfor[index].qid})
+      if (key !== 'prefix' && key !== 'suffix' && key !== 'masked' && obj[key] !== '') {
+        fields.push({ property: key, text: obj[key], qid: qid, fieldName: qid+'_'+'sublabels'+'_'+key })
       }
     });
-this.fieldsFormJotfor[index].slbs = true
-    // console.log({fields,  fieldsFormJotfor: this.fieldsFormJotfor})
     return fields;
   }
-// if(obj.slbs){
-//   return 0.sublabels.property
-// }else{
-//   return 0.name
-// }
+
+  itemSelected(fieldEntity: any) {
+    console.log('fieldEntity:', fieldEntity)
+  }
+
 }
