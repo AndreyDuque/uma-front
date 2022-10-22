@@ -1,4 +1,4 @@
-<section class="container-fluid mb-5">
+<form [formGroup]="formB24" (ngSubmit)="relationCreate()" class="container-fluid mb-5">
   <h5 class="text-center mt-5 mb-5">
     Selecciona para cada campo de <strong class="jotform"> JOTFORM </strong>el
     campo de <strong class="bitrix24">{{ entityCrm }}</strong> en
@@ -25,20 +25,23 @@
 
     <div class="col-10 col-md-4 p-0 mrginTopB24">
       <!-- <label for="exampleDataList" class="form-label">Datalist example</label> -->
-      <input
+      <input *ngIf="fieldFormJotform"
         [id]="fieldFormJotform.fieldName"
+        [formControlName]="fieldFormJotform.fieldName"
         class="form-control"
         list="datalistOptions"
         placeholder="Selecciona el campo de B24..."
+
       />
       <datalist id="datalistOptions">
-        <option *ngFor="let fieldEntity of fieldsEntityCrm" (click)="itemSelected(fieldsEntityCrm)">
+        <option *ngFor="let fieldEntity of fieldsEntityCrmCopy" (selectionchange)="itemSelected(fieldsEntityCrm)">
           {{
-            fieldEntity.listLabel ? fieldEntity.listLabel : fieldEntity.title
+          fieldEntity.listLabel ? fieldEntity.listLabel : fieldEntity.title
           }}
         </option>
       </datalist>
     </div>
   </div>
   <button type="submit" class="btn btn-outline-success">Enviar</button>
-</section>
+</form>
+<div>{{formB24.value | json}}</div>
