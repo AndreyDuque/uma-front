@@ -58,6 +58,7 @@ export class FormFieldsComponent implements OnInit {
               });
             } else {
               fields[key].fieldName = fields[key].qid + '_' + fields[key].name;
+              fields[key].validator = true;
               this.fieldsFormJotfor.push(fields[key]);
               newFields[key] = fields[key];
             }
@@ -72,28 +73,8 @@ export class FormFieldsComponent implements OnInit {
             [key]: ['', [Validators.required]]
           }
         })
-        this.formB24 = this.fb.nonNullable.group<any>(controls)
-
-        // deteccion de cambios en los inputs
-        this.formB24.valueChanges.subscribe({
-          'next': formValues => {
-
-            const formKeys = Object.keys(formValues);
-            const changes = formKeys.filter(kf => formValues[kf] !== '')
-            const keyChange = Object.keys(this.changes);
-            changes.forEach((change) => {
-              if (!this.changes.hasOwnProperty(change)) {
-                console.log(this.formB24.controls[change].value)
-                this.changes[change] = true;
-                // TODO: Verificar eliminar propiedad al seleccionar en input
-                this.fieldsEntityCrmCopy = this.fieldsEntityCrmCopy.filter(obj => obj.key !== this.formB24.controls[change].value);
-              }
-            })
-            console.log('this.changes', this.changes)
-            console.log('this.fieldsEntityCrmCopy => ', this.fieldsEntityCrmCopy)
-          }
-        })
         console.log('Campos Jotform: ', this.fieldsFormJotfor);
+        this.formB24 = this.fb.nonNullable.group<any>(controls)
       },
       'error': error => console.log(error)
     })
@@ -115,37 +96,38 @@ export class FormFieldsComponent implements OnInit {
           const keysContacts = Object.keys(fieldsEntity.contacts);
           const keysDeals = Object.keys(fieldsEntity.deals);
           keysContacts.forEach((keysContacts, index) => {
-            this.fieldsEntityCrm.push({key: 'contact#'+keysContacts, ...fieldsEntity.contacts[keysContacts]});
+            this.fieldsEntityCrm.push({ key: 'contact#' + keysContacts, ...fieldsEntity.contacts[keysContacts] });
             if (this.fieldsEntityCrm[index].title) {
               let titleField = this.fieldsEntityCrm[index].title;
-              this.fieldsEntityCrm[index].title = 'CONTACT: '+titleField;
+              this.fieldsEntityCrm[index].title = 'CONTACT: ' + titleField;
             }
             if (this.fieldsEntityCrm[index].listLabel) {
               let listLabelField = this.fieldsEntityCrm[index].listLabel
-              this.fieldsEntityCrm[index].listLabel = 'CONTACT: '+listLabelField;
+              this.fieldsEntityCrm[index].listLabel = 'CONTACT: ' + listLabelField;
             }
             dealIndex = index;
           });
           dealIndex = dealIndex + 1;
           keysDeals.forEach(keysDeals => {
-            this.fieldsEntityCrm.push({key: 'deal#'+keysDeals, ...fieldsEntity.deals[keysDeals]});
+            this.fieldsEntityCrm.push({ key: 'deal#' + keysDeals, ...fieldsEntity.deals[keysDeals] });
             if (this.fieldsEntityCrm[dealIndex].title) {
               let titleField = this.fieldsEntityCrm[dealIndex].title;
-              this.fieldsEntityCrm[dealIndex].title = 'DEAL: '+titleField;
+              this.fieldsEntityCrm[dealIndex].title = 'DEAL: ' + titleField;
             }
             if (this.fieldsEntityCrm[dealIndex].listLabel) {
               let listLabelField = this.fieldsEntityCrm[dealIndex].listLabel
-              this.fieldsEntityCrm[dealIndex].listLabel = 'DEAL: '+listLabelField;
+              this.fieldsEntityCrm[dealIndex].listLabel = 'DEAL: ' + listLabelField;
             }
             dealIndex++;
           });
         }
         console.log('Campos B24: ', this.fieldsEntityCrm);
         this.fieldsEntityCrmCopy = this.fieldsEntityCrm;
+        this.validateFields();
       }
     })
 
-    // detectar cambio en los input
+
 
 
   }
@@ -155,7 +137,7 @@ export class FormFieldsComponent implements OnInit {
     const fields: any[] = []
     keys.forEach(key => {
       if (key !== 'prefix' && key !== 'suffix' && key !== 'masked' && obj[key] !== '') {
-        fields.push({ property: key, text: obj[key], qid: qid, fieldName: qid + '_' + 'sublabels' + '_' + key })
+        fields.push({ property: key, text: obj[key], qid: qid, fieldName: qid + '_' + 'sublabels' + '_' + key, validator: true })
       }
     });
     return fields;
@@ -169,7 +151,9 @@ export class FormFieldsComponent implements OnInit {
     const keysForm = Object.keys(this.formB24.value);
     keysForm.forEach(key => {
       if (this.formB24.controls[key].valid) {
+        console.log('/////', this.formB24.controls[key].value)
         const field = this.fieldsEntityCrm.filter(obj => obj.title === this.formB24.controls[key].value || obj.listLabel === this.formB24.controls[key].value)[0]
+        console.log('*****', field)
         if (field) {
           this.relations.push([
             key, field.key
@@ -184,5 +168,24 @@ export class FormFieldsComponent implements OnInit {
       relations: this.relations
     }
     console.log('Objeto a enviar al Back: ', this.relatedFields);
+  }
+
+  validateFields() {
+    this.formB24.valueChanges.subscribe({
+      'next': formValues => {
+        const formKeys = Object.keys(formValues);
+        formKeys.forEach((formKey) => {
+          // let campoJotform = this.formB24.controls[formKey].value
+          let fieldCrm = this.fieldsEntityCrm.filter(field => field.title === this.formB24.controls[formKey].value)[0]
+          if (fieldCrm || formValues[formKey] === "") {
+            let index = this.fieldsFormJotfor.findIndex((field: any) => field.fieldName == formKey);
+            this.fieldsFormJotfor[index].validator = true;
+          } else {
+            let index = this.fieldsFormJotfor.findIndex((field: any) => field.fieldName == formKey);
+            this.fieldsFormJotfor[index].validator = false;
+          }
+        })
+      }
+    })
   }
 }
