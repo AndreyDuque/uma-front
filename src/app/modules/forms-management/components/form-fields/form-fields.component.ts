@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { B24Service } from 'src/app/modules/core/services/b24.service';
 import { JotformService } from 'src/app/modules/core/services/jotform.service';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-form-fields',
@@ -20,12 +21,15 @@ export class FormFieldsComponent implements OnInit {
   relations: any[] = [];
   relatedFields: any = {};
   changes: any = {};
+  activateSubmit: boolean = false;
 
   constructor(
     private readonly jotformService: JotformService,
     private readonly b24Service: B24Service,
     private readonly route: ActivatedRoute,
-    private fb: FormBuilder
+    private readonly router: Router,
+    private fb: FormBuilder,
+    private toastr: ToastrService
   ) {
   }
 
@@ -75,7 +79,8 @@ export class FormFieldsComponent implements OnInit {
           }
         })
         console.log('Campos Jotform: ', this.fieldsFormJotfor);
-        this.formB24 = this.fb.nonNullable.group<any>(controls)
+        this.formB24 = this.fb.nonNullable.group<any>(controls);
+        console.log('Control de campos:', this.formB24)
       },
       'error': error => console.log(error)
     })
@@ -140,10 +145,6 @@ export class FormFieldsComponent implements OnInit {
     return fields;
   }
 
-  itemSelected(fieldEntity: any) {
-    console.log('fieldEntity:', fieldEntity)
-  }
-
   relationCreate() {
     const keysForm = Object.keys(this.formB24.value);
     keysForm.forEach(key => {
@@ -162,6 +163,8 @@ export class FormFieldsComponent implements OnInit {
       bitrixType: this.entityCrm,
       relations: this.relations
     }
+    this.toastr.success('¡Formulario '+ this.titleFormJotform +' vinculado exitosamente!', '¡Bien!');
+    this.router.navigate(['/forms/list']).then
     console.log('Objeto a enviar al Back: ', this.relatedFields);
   }
 
@@ -183,15 +186,20 @@ export class FormFieldsComponent implements OnInit {
               catches.filter((capture, index) => {
                 let validateDuplicate = catches.indexOf(capture) === index;
                 if (validateDuplicate) {
+                  let index = this.fieldsFormJotfor.findIndex((field: any) => field.fieldName == formKey);
                   this.fieldsFormJotfor[index].validateRelationship = true;
+                  this.activateSubmit = true;
                 } else {
+                  let index = this.fieldsFormJotfor.findIndex((field: any) => field.fieldName == formKey);
                   this.fieldsFormJotfor[index].validateRelationship = false;
+                  this.activateSubmit = false;
                 }
               })
             }
           } else {
             let index = this.fieldsFormJotfor.findIndex((field: any) => field.fieldName == formKey);
             this.fieldsFormJotfor[index].validator = false;
+            this.activateSubmit = false;
           }
         })
       }

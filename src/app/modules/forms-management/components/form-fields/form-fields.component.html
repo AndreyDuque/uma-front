@@ -26,6 +26,7 @@
     <div class="col-10 col-md-4 p-0 mrginTopB24">
       <!-- <label for="exampleDataList" class="form-label">Datalist example</label> -->
       <input *ngIf="fieldFormJotform"
+      [ngClass]="{'inputAlert' : !fieldFormJotform.validator || !fieldFormJotform.validateRelationship}"
         [id]="fieldFormJotform.fieldName"
         [formControlName]="fieldFormJotform.fieldName"
         class="form-control"
@@ -34,16 +35,17 @@
 
       />
       <datalist id="datalistOptions">
-        <option *ngFor="let fieldEntity of fieldsEntityCrmCopy" (selectionchange)="itemSelected(fieldsEntityCrm)">
+        <option *ngFor="let fieldEntity of fieldsEntityCrmCopy">
           {{
           fieldEntity.listLabel ? fieldEntity.listLabel : fieldEntity.title
           }}
         </option>
       </datalist>
-      <label *ngIf="!fieldFormJotform.validator">El campo no existe en B24</label>
-      <label *ngIf="!fieldFormJotform.validateRelationship && fieldFormJotform.validator">El campo ya se ha relacionado</label>
+      <label class="labelAlert" *ngIf="!fieldFormJotform.validator">El campo no existe en Bitrix24</label>
+      <label class="labelAlert" *ngIf="!fieldFormJotform.validateRelationship && fieldFormJotform.validator">El campo esta duplicado</label>
     </div>
   </div>
-  <button type="submit" class="btn btn-outline-success">Enviar</button>
+  <div class="row justify-content-center mt-5">
+    <button type="submit" [disabled]="!activateSubmit" class="btn btn-dark col-6 col-md-2">Guardar Relación</button>
+  </div>
 </form>
-<!-- <div>{{formB24.value | json}}</div> -->
