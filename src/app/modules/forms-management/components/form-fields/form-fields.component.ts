@@ -59,6 +59,7 @@ export class FormFieldsComponent implements OnInit {
             } else {
               fields[key].fieldName = fields[key].qid + '_' + fields[key].name;
               fields[key].validator = true;
+              fields[key].validateRelationship = true;
               this.fieldsFormJotfor.push(fields[key]);
               newFields[key] = fields[key];
             }
@@ -126,10 +127,6 @@ export class FormFieldsComponent implements OnInit {
         this.validateFields();
       }
     })
-
-
-
-
   }
 
   labelsProperties(obj: any, qid: string) {
@@ -137,7 +134,7 @@ export class FormFieldsComponent implements OnInit {
     const fields: any[] = []
     keys.forEach(key => {
       if (key !== 'prefix' && key !== 'suffix' && key !== 'masked' && obj[key] !== '') {
-        fields.push({ property: key, text: obj[key], qid: qid, fieldName: qid + '_' + 'sublabels' + '_' + key, validator: true })
+        fields.push({ property: key, text: obj[key], qid: qid, fieldName: qid + '_' + 'sublabels' + '_' + key, validator: true, validateRelationship: true })
       }
     });
     return fields;
@@ -151,9 +148,7 @@ export class FormFieldsComponent implements OnInit {
     const keysForm = Object.keys(this.formB24.value);
     keysForm.forEach(key => {
       if (this.formB24.controls[key].valid) {
-        console.log('/////', this.formB24.controls[key].value)
         const field = this.fieldsEntityCrm.filter(obj => obj.title === this.formB24.controls[key].value || obj.listLabel === this.formB24.controls[key].value)[0]
-        console.log('*****', field)
         if (field) {
           this.relations.push([
             key, field.key
@@ -174,12 +169,26 @@ export class FormFieldsComponent implements OnInit {
     this.formB24.valueChanges.subscribe({
       'next': formValues => {
         const formKeys = Object.keys(formValues);
+        const catches: any[] = [];
         formKeys.forEach((formKey) => {
           // let campoJotform = this.formB24.controls[formKey].value
-          let fieldCrm = this.fieldsEntityCrm.filter(field => field.title === this.formB24.controls[formKey].value)[0]
+          let fieldCrm = this.fieldsEntityCrm.filter(field => field.title === this.formB24.controls[formKey].value || field.listLabel
+            === this.formB24.controls[formKey].value)[0]
           if (fieldCrm || formValues[formKey] === "") {
             let index = this.fieldsFormJotfor.findIndex((field: any) => field.fieldName == formKey);
             this.fieldsFormJotfor[index].validator = true;
+            this.fieldsFormJotfor[index].validateRelationship = true;
+            if (formValues[formKey] != "") {
+              catches.push(formValues[formKey]);
+              catches.filter((capture, index) => {
+                let validateDuplicate = catches.indexOf(capture) === index;
+                if (validateDuplicate) {
+                  this.fieldsFormJotfor[index].validateRelationship = true;
+                } else {
+                  this.fieldsFormJotfor[index].validateRelationship = false;
+                }
+              })
+            }
           } else {
             let index = this.fieldsFormJotfor.findIndex((field: any) => field.fieldName == formKey);
             this.fieldsFormJotfor[index].validator = false;
