@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class B24Service {
 
-  backUrl=environment.backUrl
+  backUrl=environment.apiUrl
   constructor(private readonly http: HttpClient) { }
 
   getEntityB24(entity: string){
