@@ -1,21 +1,27 @@
 import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class JotformService {
 
-  backUrl=environment.backUrl
-  constructor(private readonly http: HttpClient) {}
+  backUrl=environment.apiUrl
+  constructor(
+    private readonly http: HttpClient,
+    private readonly cookieService: CookieService
+  ) {}
 
   getJotformForms(){
-    return this.http.get(`${this.backUrl}/forms`);
+    const client = this.cookieService.check('client')?this.cookieService.get('client'):'';
+    return this.http.get(`${this.backUrl}/forms?client=${client}`);
   }
 
   getFormFieldsJotformForId(id: number) {
-    return this.http.get(`${this.backUrl}/forms/${id}/questions`);
+    const client = this.cookieService.check('client')?this.cookieService.get('client'):'';
+    return this.http.get(`${this.backUrl}/forms/${id}/questions?client=${client}`);
   }
 
 }

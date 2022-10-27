@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { MainLayoutComponent } from './modules/core/shared/components/main-layout/main-layout.component';
 import { FooterComponent } from './modules/core/shared/components/footer/footer.component';
 import { ToastrModule } from 'ngx-toastr';
+import {CookieService} from "ngx-cookie-service";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
   exports:[
     FooterComponent
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
