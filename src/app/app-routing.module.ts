@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {MainLayoutComponent} from "./modules/core/shared/components/main-layout/main-layout.component";
+import {AuthGuard} from "./modules/core/guards/auth.guard";
 
 const routes: Routes = [
   {
@@ -18,7 +19,8 @@ const routes: Routes = [
       },
       {
         path: 'forms',
-        loadChildren: ()=> import('./modules/forms-management/forms-management.module').then(module => module.FormsManagementModule)
+        loadChildren: ()=> import('./modules/forms-management/forms-management.module').then(module => module.FormsManagementModule),
+        canActivate: [AuthGuard],
       }
     ]
   }
