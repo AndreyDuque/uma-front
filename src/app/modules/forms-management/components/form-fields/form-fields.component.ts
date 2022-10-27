@@ -80,7 +80,7 @@ export class FormFieldsComponent implements OnInit {
         })
         console.log('Campos Jotform: ', this.fieldsFormJotfor);
         this.formB24 = this.fb.nonNullable.group<any>(controls);
-        console.log('Control de campos:', this.formB24)
+        // console.log('Control de campos:', this.formB24)
       },
       'error': error => console.log(error)
     })
@@ -173,35 +173,44 @@ export class FormFieldsComponent implements OnInit {
       'next': formValues => {
         const formKeys = Object.keys(formValues);
         const catches: any[] = [];
-        formKeys.forEach((formKey) => {
-          // let campoJotform = this.formB24.controls[formKey].value
-          let fieldCrm = this.fieldsEntityCrm.filter(field => field.title === this.formB24.controls[formKey].value || field.listLabel
-            === this.formB24.controls[formKey].value)[0]
-          if (fieldCrm || formValues[formKey] === "") {
-            let index = this.fieldsFormJotfor.findIndex((field: any) => field.fieldName == formKey);
-            this.fieldsFormJotfor[index].validator = true;
-            this.fieldsFormJotfor[index].validateRelationship = true;
-            if (formValues[formKey] != "") {
-              catches.push(formValues[formKey]);
+        // VALIDAR CAMPOS QUE NO ESTEN VACIOS
+        const changes = formKeys.filter(fk => formValues[fk] !== '');
+        changes.forEach(change => {
+          let fields = this.fieldsEntityCrm.filter(fec => fec.title === formValues[change] || fec.listLabel === formValues[change])
+          let indexJ = this.fieldsFormJotfor.findIndex(fj => fj.fieldName === change)
+          if (fields.length === 0) {
+            this.fieldsFormJotfor[indexJ].validator = false
+            this.activateSubmit = false
+          } else {
+            this.fieldsFormJotfor[indexJ].validator = true
+            this.activateSubmit = true
+            catches.push(formValues[change]);
               catches.filter((capture, index) => {
                 let validateDuplicate = catches.indexOf(capture) === index;
                 if (validateDuplicate) {
-                  let index = this.fieldsFormJotfor.findIndex((field: any) => field.fieldName == formKey);
-                  this.fieldsFormJotfor[index].validateRelationship = true;
-                  this.activateSubmit = true;
+                  this.fieldsFormJotfor[indexJ].validateRelationship = true;
                 } else {
-                  let index = this.fieldsFormJotfor.findIndex((field: any) => field.fieldName == formKey);
-                  this.fieldsFormJotfor[index].validateRelationship = false;
+                  this.fieldsFormJotfor[indexJ].validateRelationship = false;
                   this.activateSubmit = false;
                 }
               })
-            }
-          } else {
-            let index = this.fieldsFormJotfor.findIndex((field: any) => field.fieldName == formKey);
-            this.fieldsFormJotfor[index].validator = false;
-            this.activateSubmit = false;
           }
         })
+        // VALIDAR SI HAY CAMPOS VACIOS
+        const emptyFields = formKeys.filter(fk => formValues[fk] === "");
+        if (emptyFields.length === this.fieldsFormJotfor.length) {
+          this.activateSubmit = false
+        }
+        emptyFields.forEach(field => {
+          let indexJ = this.fieldsFormJotfor.findIndex(fj => fj.fieldName === field)
+          this.fieldsFormJotfor[indexJ].validator = true
+          this.fieldsFormJotfor[indexJ].validateRelationship = true;
+        })
+        // VALIDAR ESTADO DE PROPIEDADES
+        const validateStates = this.fieldsFormJotfor.filter(fields => fields.validator === false)
+        if (validateStates.length > 0) {
+          this.activateSubmit = false
+        }
       }
     })
   }
