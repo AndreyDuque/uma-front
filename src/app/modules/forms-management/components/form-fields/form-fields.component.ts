@@ -171,12 +171,19 @@ export class FormFieldsComponent implements OnInit {
       relations: this.relations
     };
     this.relationsService.createRelation(this.relatedFields).subscribe({
-      'next': result => console.log(result),
-      'error': error => console.log(error),
+      'next': result => {
+        console.log(result)
+        if(result){
+          this.toastr.success('¡Formulario '+ this.titleFormJotform +' vinculado exitosamente!', '¡Bien!');
+          this.router.navigate(['/forms/list']).then()
+        }
+      },
+      'error': error => {
+        console.log(error)
+        if(error) this.toastr.success(`${error.error.message}`, '¡Error!');
+      },
     });
-    this.toastr.success('¡Formulario '+ this.titleFormJotform +' vinculado exitosamente!', '¡Bien!');
-    this.router.navigate(['/forms/list']).then()
-    console.log('Objeto a enviar al Back: ', this.relatedFields);
+
   }
 
   validateFields() {
