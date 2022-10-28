@@ -159,7 +159,9 @@ export class FormFieldsComponent implements OnInit {
         }
       }
     })
+
     const client = this.cookieService.check('client')?this.cookieService.get('client'): null;
+
     this.relatedFields = {
       client,
       formId: this.idFormJotform,
