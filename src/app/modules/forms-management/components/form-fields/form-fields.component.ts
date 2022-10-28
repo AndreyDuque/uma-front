@@ -4,6 +4,8 @@ import { B24Service } from 'src/app/modules/core/services/b24.service';
 import { JotformService } from 'src/app/modules/core/services/jotform.service';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ToastrService } from 'ngx-toastr';
+import {CookieService} from "ngx-cookie-service";
+import {RelationsService} from "../../../core/services/relations.service";
 
 @Component({
   selector: 'app-form-fields',
@@ -26,10 +28,12 @@ export class FormFieldsComponent implements OnInit {
   constructor(
     private readonly jotformService: JotformService,
     private readonly b24Service: B24Service,
+    private readonly relationsService: RelationsService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private fb: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private readonly cookieService: CookieService,
   ) {
   }
 
@@ -157,14 +161,21 @@ export class FormFieldsComponent implements OnInit {
         }
       }
     })
+
+    const client = this.cookieService.check('client')?this.cookieService.get('client'): null;
+
     this.relatedFields = {
-      userId: '',
+      client,
       formId: this.idFormJotform,
       bitrixType: this.entityCrm,
       relations: this.relations
-    }
+    };
+    this.relationsService.createRelation(this.relatedFields).subscribe({
+      'next': result => console.log(result),
+      'error': error => console.log(error),
+    });
     this.toastr.success('¡Formulario '+ this.titleFormJotform +' vinculado exitosamente!', '¡Bien!');
-    this.router.navigate(['/forms/list']).then
+    this.router.navigate(['/forms/list']).then()
     console.log('Objeto a enviar al Back: ', this.relatedFields);
   }
 
