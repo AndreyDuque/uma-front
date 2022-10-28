@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ToastrService } from 'ngx-toastr';
 import {CookieService} from "ngx-cookie-service";
 import {RelationsService} from "../../../core/services/relations.service";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-form-fields',
@@ -34,6 +35,7 @@ export class FormFieldsComponent implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private readonly cookieService: CookieService,
+    private location: Location
   ) {
   }
 
@@ -224,5 +226,12 @@ export class FormFieldsComponent implements OnInit {
         }
       }
     })
+  }
+
+  goBack() {
+    // window.history.back();
+    this.location.back();
+
+    console.log( 'goBack()...' );
   }
 }

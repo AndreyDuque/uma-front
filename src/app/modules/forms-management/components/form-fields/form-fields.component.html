@@ -1,4 +1,8 @@
-<form [formGroup]="formB24" (ngSubmit)="relationCreate()" class="container-fluid mb-5">
+<form
+  [formGroup]="formB24"
+  (ngSubmit)="relationCreate()"
+  class="container-fluid mb-5"
+>
   <h5 class="text-center mt-5 mb-5">
     Selecciona para cada campo de <strong class="jotform"> JOTFORM </strong>el
     campo de <strong class="bitrix24">{{ entityCrm }}</strong> en
@@ -25,27 +29,47 @@
 
     <div class="col-10 col-md-4 p-0 mrginTopB24">
       <!-- <label for="exampleDataList" class="form-label">Datalist example</label> -->
-      <input *ngIf="fieldFormJotform"
-      [ngClass]="{'inputAlert' : !fieldFormJotform.validator || !fieldFormJotform.validateRelationship}"
+      <input
+        autocomplete="off"
+        *ngIf="fieldFormJotform"
+        [ngClass]="{
+          inputAlert:
+            !fieldFormJotform.validator ||
+            !fieldFormJotform.validateRelationship
+        }"
         [id]="fieldFormJotform.fieldName"
         [formControlName]="fieldFormJotform.fieldName"
         class="form-control"
         list="datalistOptions"
         placeholder="Selecciona el campo de B24..."
-
       />
       <datalist id="datalistOptions">
         <option *ngFor="let fieldEntity of fieldsEntityCrmCopy">
           {{
-          fieldEntity.listLabel ? fieldEntity.listLabel : fieldEntity.title
+            fieldEntity.listLabel ? fieldEntity.listLabel : fieldEntity.title
           }}
         </option>
       </datalist>
-      <label class="labelAlert" *ngIf="!fieldFormJotform.validator">El campo no existe en Bitrix24</label>
-      <label class="labelAlert" *ngIf="!fieldFormJotform.validateRelationship && fieldFormJotform.validator">El campo esta duplicado</label>
+      <label class="labelAlert" *ngIf="!fieldFormJotform.validator"
+        >El campo no existe en Bitrix24</label
+      >
+      <label
+        class="labelAlert"
+        *ngIf="
+          !fieldFormJotform.validateRelationship && fieldFormJotform.validator
+        "
+        >El campo esta duplicado</label
+      >
     </div>
   </div>
-  <div class="row justify-content-center mt-5">
-    <button type="submit" [disabled]="!activateSubmit" class="btn btn-dark col-6 col-md-2">Guardar Relación</button>
+  <div class="row justify-content-around mt-5">
+    <a class="btn btn-secondary col-4 col-md-2" (click)="goBack()">Regresar</a>
+    <button
+      type="submit"
+      [disabled]="!activateSubmit"
+      class="btn btn-success col-4 col-md-2"
+    >
+      Guardar Relación
+    </button>
   </div>
 </form>
