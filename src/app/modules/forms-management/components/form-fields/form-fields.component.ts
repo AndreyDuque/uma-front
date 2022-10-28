@@ -175,7 +175,7 @@ export class FormFieldsComponent implements OnInit {
         console.log(result)
         if(result){
           this.toastr.success('¡Formulario '+ this.titleFormJotform +' vinculado exitosamente!', '¡Bien!');
-          this.router.navigate(['/forms/list']).then()
+          this.router.navigate(['/forms/list']).then();
         }
       },
       'error': error => {
