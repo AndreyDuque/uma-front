@@ -4,6 +4,7 @@ import { B24Service } from './services/b24.service';
 import { JotformService } from './services/jotform.service';
 import {HttpClientModule} from "@angular/common/http";
 import {AuthService} from "./services/auth.service";
+import {RelationsService} from "./services/relations.service";
 
 @NgModule({
   declarations: [],
@@ -15,6 +16,7 @@ import {AuthService} from "./services/auth.service";
     B24Service,
     JotformService,
     AuthService,
+    RelationsService
   ]
 })
 export class CoreModule { }
