@@ -17,7 +17,7 @@ export class FormFieldsComponent implements OnInit {
   fieldsFormJotfor: any[] = [];
   fieldsEntityCrm: any[] = [];
   fieldsEntityCrmCopy: any[] = [];
-  idFormJotform: number = 0;
+  idFormJotform: string = '';
   titleFormJotform: string = '';
   entityCrm: string = '';
   relations: any[] = [];
@@ -41,7 +41,7 @@ export class FormFieldsComponent implements OnInit {
 
     this.route.queryParams.subscribe({
       'next': query => {
-        this.idFormJotform = Number(query['id']);
+        this.idFormJotform = query['id'];
         this.entityCrm = query['entity'];
       }
     })
@@ -77,6 +77,7 @@ export class FormFieldsComponent implements OnInit {
         let controls = {}
         this.fieldsFormJotfor.forEach(field => {
           const key = field.fieldName;
+          console.log({key})
           controls = {
             ...controls,
             [key]: ['', [Validators.required]]
@@ -178,9 +179,24 @@ export class FormFieldsComponent implements OnInit {
           this.router.navigate(['/forms/list']).then();
         }
       },
-      'error': error => {
-        console.log(error)
-        if(error) this.toastr.success(`${error.error.message}`, '¡Error!');
+      'error': (reject) => {
+        if(reject) {
+        console.log(reject.error)
+          console.log('typeof reject.message', typeof reject.error.message)
+          console.log(reject.error.message)
+            const error = reject.error.error;
+          if(typeof reject.error.message === 'object'){
+            const messages: any[] = reject.error.message
+            let message = ''
+            messages.forEach((errorMessage: string, index) => {
+              message += errorMessage[index+1] !== undefined ? errorMessage+', ': errorMessage+'.' ;
+            })
+            console.log({message})
+          this.toastr.error(`${message}`, `${error}`);
+          }else{
+            this.toastr.error(`${reject.error.message}`, `${reject.error.error}`);
+          }
+        }
       },
     });
 

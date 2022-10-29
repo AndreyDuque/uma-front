@@ -19,7 +19,7 @@ export class JotformService {
     return this.http.get(`${this.backUrl}/forms?client=${client}`);
   }
 
-  getFormFieldsJotformForId(id: number) {
+  getFormFieldsJotformForId(id: string) {
     const client = this.cookieService.check('client')?this.cookieService.get('client'):'';
     return this.http.get(`${this.backUrl}/forms/${id}/questions?client=${client}`);
   }
