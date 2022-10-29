@@ -7,6 +7,7 @@ import { MainLayoutComponent } from './modules/core/shared/components/main-layou
 import { FooterComponent } from './modules/core/shared/components/footer/footer.component';
 import { ToastrModule } from 'ngx-toastr';
 import {CookieService} from "ngx-cookie-service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import {CookieService} from "ngx-cookie-service";
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ToastrModule.forRoot()
   ],

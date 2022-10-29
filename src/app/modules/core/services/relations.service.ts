@@ -10,6 +10,7 @@ apiUrl = environment.apiUrl;
   constructor(private readonly http: HttpClient) { }
 
   createRelation(relatedFields: any) {
+    console.log(relatedFields);
     return this.http.post(`${this.apiUrl}/relations`,relatedFields);
   }
 }
