@@ -4,8 +4,10 @@ import { B24Service } from 'src/app/modules/core/services/b24.service';
 import { JotformService } from 'src/app/modules/core/services/jotform.service';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ToastrService } from 'ngx-toastr';
-import {CookieService} from "ngx-cookie-service";
-import {RelationsService} from "../../../core/services/relations.service";
+import { CookieService } from "ngx-cookie-service";
+import { RelationsService } from "../../../core/services/relations.service";
+import { Location } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form-fields',
@@ -34,6 +36,7 @@ export class FormFieldsComponent implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private readonly cookieService: CookieService,
+    private location: Location
   ) {
   }
 
@@ -85,7 +88,15 @@ export class FormFieldsComponent implements OnInit {
         })
         console.log('Campos Jotform: ', this.fieldsFormJotfor);
         this.formB24 = this.fb.nonNullable.group<any>(controls);
-        // console.log('Control de campos:', this.formB24)
+        if (this.fieldsFormJotfor.length === 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `¡${this.titleFormJotform},
+            no contiene campos que se puedan relacionar. Por favor seleccione otro formulario!`
+          })
+          this.router.navigate(['/forms/list']);
+        }
       },
       'error': error => console.log(error)
     })
@@ -163,7 +174,7 @@ export class FormFieldsComponent implements OnInit {
       }
     })
 
-    const client = this.cookieService.check('client')?this.cookieService.get('client'): null;
+    const client = this.cookieService.check('client') ? this.cookieService.get('client') : null;
 
     this.relatedFields = {
       client,
@@ -199,7 +210,6 @@ export class FormFieldsComponent implements OnInit {
         }
       },
     });
-
   }
 
   validateFields() {
@@ -219,15 +229,15 @@ export class FormFieldsComponent implements OnInit {
             this.fieldsFormJotfor[indexJ].validator = true
             this.activateSubmit = true
             catches.push(formValues[change]);
-              catches.filter((capture, index) => {
-                let validateDuplicate = catches.indexOf(capture) === index;
-                if (validateDuplicate) {
-                  this.fieldsFormJotfor[indexJ].validateRelationship = true;
-                } else {
-                  this.fieldsFormJotfor[indexJ].validateRelationship = false;
-                  this.activateSubmit = false;
-                }
-              })
+            catches.filter((capture, index) => {
+              let validateDuplicate = catches.indexOf(capture) === index;
+              if (validateDuplicate) {
+                this.fieldsFormJotfor[indexJ].validateRelationship = true;
+              } else {
+                this.fieldsFormJotfor[indexJ].validateRelationship = false;
+                this.activateSubmit = false;
+              }
+            })
           }
         })
         // VALIDAR SI HAY CAMPOS VACIOS
@@ -247,5 +257,12 @@ export class FormFieldsComponent implements OnInit {
         }
       }
     })
+  }
+
+  goBack() {
+    // window.history.back();
+    this.location.back();
+
+    console.log('goBack()...');
   }
 }
